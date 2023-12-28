@@ -92,8 +92,12 @@ function canQueenCaptureKing(queen, king) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  if (a + b <= c || a + c <= b || b + c <= a) {
+    return false;
+  }
+
+  return a === b || a === c || b === c;
 }
 
 /**
@@ -110,8 +114,29 @@ function isIsoscelesTriangle(/* a, b, c */) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+function convertToRomanNumerals(num) {
+  if (num < 1) {
+    return '';
+  }
+  if (num >= 40) {
+    return `XL${convertToRomanNumerals(num - 40)}`;
+  }
+  if (num >= 10) {
+    return `X${convertToRomanNumerals(num - 10)}`;
+  }
+  if (num >= 9) {
+    return `IX${convertToRomanNumerals(num - 9)}`;
+  }
+  if (num >= 5) {
+    return `V${convertToRomanNumerals(num - 5)}`;
+  }
+  if (num >= 4) {
+    return `IV${convertToRomanNumerals(num - 4)}`;
+  }
+  if (num >= 1) {
+    return `I${convertToRomanNumerals(num - 1)}`;
+  }
+  return '';
 }
 
 /**
@@ -129,10 +154,60 @@ function convertToRomanNumerals(/* num */) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-function convertNumberToString(/* numberStr */) {
-  throw new Error('Not implemented');
+function convertNumberToString(numberStr) {
+  let wordString = '';
+  let isFirstCharacter = true;
+  if (numberStr === '') {
+    return '';
+  }
+  for (let i = 0; i < numberStr.length; i += 1) {
+    switch (numberStr[i]) {
+      case '0':
+        wordString += isFirstCharacter ? 'zero' : ' zero';
+        break;
+      case '1':
+        wordString += isFirstCharacter ? 'one' : ' one';
+        break;
+      case '2':
+        wordString += isFirstCharacter ? 'two' : ' two';
+        break;
+      case '3':
+        wordString += isFirstCharacter ? 'three' : ' three';
+        break;
+      case '4':
+        wordString += isFirstCharacter ? 'four' : ' four';
+        break;
+      case '5':
+        wordString += isFirstCharacter ? 'five' : ' five';
+        break;
+      case '6':
+        wordString += isFirstCharacter ? 'six' : ' six';
+        break;
+      case '7':
+        wordString += isFirstCharacter ? 'seven' : ' seven';
+        break;
+      case '8':
+        wordString += isFirstCharacter ? 'eight' : ' eight';
+        break;
+      case '9':
+        wordString += isFirstCharacter ? 'nine' : ' nine';
+        break;
+      case ',':
+      case '.':
+        wordString += isFirstCharacter ? 'point' : ' point';
+        break;
+      case '-':
+        wordString += isFirstCharacter ? 'minus' : ' minus';
+        break;
+      default:
+    }
+    isFirstCharacter = false;
+  }
+  return wordString;
 }
 
+// Пример использования
+console.log(convertNumberToString('119.9'));
 /**
  * Determines whether a string is a palindrome.
  * In this task, the use of methods of the String and Array classes is not allowed.
